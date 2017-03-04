@@ -1,0 +1,279 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<script src="js/pt.js"></script>
+		<script src="js/three.min.js"></script>
+		<style>
+			html, body{
+				margin: 0;
+	            padding: 0;
+			}
+			body{
+				background-color: black;
+			}
+		</style>
+    </head>
+    <body>
+
+    </body>
+    <script>
+
+	var startTime	= Date.now();
+
+	window.addEventListener('load', function() {
+		demo.start();
+	});
+
+	function DegToRad(deg){
+		return (Math.PI / 180) * deg;
+	}
+	
+	function RadToDeg(rad){
+		return (180 / Math.PI) * rad;
+	}
+	
+	function randomIntFromInterval(min, max){
+	    return Math.floor(Math.random()*(max-min+1)+min);
+	}
+
+	var demo = {
+		WIDTH: window.innerWidth,
+		HEIGHT: window.innerHeight,
+		
+		scene: null,
+		camera: null,
+		renderer: null,
+		
+		loadingManager: new THREE.LoadingManager(),
+		
+		player: null,	
+		
+		data: {
+			images: [
+				{u: 'img/star.png'}
+			]
+		},
+		
+		effects: {
+			cubes: null
+		},
+		
+		loader: function(callback){
+			
+			demo.player.load('mods/culture-shock.mod');
+			demo.player.onReady = function () {
+				demo.player.repeat = true;
+				//demo.player.play();
+			};
+			
+		},
+		
+		start: function(){
+			demo.setup.all();
+			
+			demo.loader();
+			
+			demo.effects.cubes = cubes({
+				camera: demo.camera,
+				scene: demo.scene
+			});
+			
+			demo.loadingManager.onProgress = function ( item, loaded, total ) {
+			    // this gets called after any item has been loaded
+			    console.log('texture', item);
+			};
+			
+			demo.loadingManager.onLoad = function () {
+			    // all textures are loaded
+			    demo.animate();
+			};
+			
+			demo.animate();
+		},
+		
+		animate: function(){
+			
+			// Defined in the RequestAnimationFrame.js file, this function means that the
+			// animate function is called upon timeout:
+			// Read more about requestAnimationFrame at http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
+			requestAnimationFrame(demo.animate);
+			
+			demo.render();
+		},
+		
+		render: function(){
+			
+			// Render the scene.
+			demo.renderer.render(demo.scene, demo.camera);
+			
+			demo.effects.cubes.update();	
+			
+			demo.camera.position.y = 0;
+			demo.camera.position.x = 0;
+			//demo.camera.position.y += 0.02;
+
+			//demo.camera.lookAt( demo.scene.position ); //keep the camerea on the object
+		},
+		
+		setup: {
+			all: function(){
+				
+				window.addEventListener('resize', demo.events.onResize);
+				
+				demo.setup.createRenderer();
+				demo.setup.createScene();
+				demo.setup.createCamera();
+				
+				
+				demo.setup.createPlayer();
+			},
+			
+			createRenderer: function(){
+				//  Create a renderer and add it to the DOM.
+				demo.renderer = new THREE.WebGLRenderer({antialias:true});
+				demo.renderer.setSize(demo.WIDTH, demo.HEIGHT);
+				document.body.appendChild(demo.renderer.domElement);
+			},
+			
+			createScene: function(){
+				// Create the scene and set the scene size.
+				demo.scene = new THREE.Scene();
+				demo.scene.fog = new THREE.FogExp2( 0x000000, 0.0011);
+			},
+			
+			createCamera: function(){
+				demo.camera = new THREE.PerspectiveCamera(60, demo.WIDTH / demo.HEIGHT, 75, 1000);
+			    demo.camera.position.set(0, 0, 600);
+			    demo.scene.add(demo.camera);
+			},
+			
+			createPlayer: function(){
+				demo.player = new Protracker();
+			}
+		},
+		
+		events: {
+			onResize: function(){
+				// Create an event listener that resizes the renderer with the browser window.
+		      	demo.WIDTH = window.innerWidth,
+		      	demo.HEIGHT = window.innerHeight;
+		      
+				demo.renderer.setSize(demo.WIDTH, demo.HEIGHT);
+		      	demo.camera.aspect = demo.WIDTH / demo.HEIGHT;
+		      	demo.camera.updateProjectionMatrix();
+			}
+			
+		}
+	}
+
+	var cubes = function(options){
+		var that = {};
+		var camera = options.camera;
+    	var scene = options.scene;
+    	var stars = options.stars;
+    	var size = options.size;
+
+
+		var light1 = new THREE.PointLight( 0x8844ff, 5, 100 );
+		//scene.add( light1 );
+			
+		var light2 = new THREE.PointLight( 0xff2288, 5, 100 );
+		//scene.add( light2 );
+		
+		var lights = [];
+		lights[ 0 ] = new THREE.PointLight( 0x156289, 1, 0 );
+		lights[ 1 ] = new THREE.PointLight( 0x156289, 1, 0 );
+		lights[ 2 ] = new THREE.PointLight( 0x156289, 1, 0 );
+
+		lights[ 0 ].position.set( 0, 200, 0 );
+		lights[ 1 ].position.set( 100, 200, 100 );
+		lights[ 2 ].position.set( 200, 200, - 100 );
+
+		scene.add( lights[ 0 ] );
+		scene.add( lights[ 1 ] );
+		scene.add( lights[ 2 ] ); 
+		
+		
+		var parent = new THREE.Object3D();
+		
+		
+		var geometry = new THREE.IcosahedronGeometry( 5, 0 );
+		var material = new THREE.MeshLambertMaterial( { shading: THREE.FlatShading } );
+
+		var z = 200;
+		
+		for(var rings = 0; rings < 200; rings++)
+		{
+		
+			var circle = new THREE.Object3D();
+		
+			for(var i = 0; i < 360; i += 20)
+			{
+				var object = new THREE.Mesh( geometry, material );		
+				var xpos = Math.cos(DegToRad(i)) * 100;
+				var ypos = Math.sin(DegToRad(i)) * 100;
+		
+				object.position.set(xpos, ypos, z);
+		
+				circle.add( object );
+			}
+		
+			z -= 60;
+		
+			parent.add( circle );
+		}	
+
+		scene.add( parent );
+
+	    /*
+	     * Animate
+	     */
+	    that.update = function() {
+			
+			var timer = t = Date.now() * 0.005;
+
+			light1.position.x = Math.sin( t * 5 ) * 100;
+			light1.position.z = Math.cos( t * 5 ) * 100;
+
+			light2.position.x = Math.sin( t * 5 + 2 ) * 100;
+			light2.position.z = Math.cos( t * 5 + 2 ) * 100;
+					
+			
+			for ( var i = 0, l = parent.children.length; i < l; i ++ ) {
+
+				var circle = parent.children[ i ];
+				
+				//var scale = Math.sin( t * 10 + circle.position.distanceTo( scene.position ) * 0.5 ) + 1;
+				circle.rotation.z += (i%2)? 0.001 : -0.002;
+				
+				//circle.position.y += Math.sin(t * 5 * 2 * Math.PI);
+				
+				circle.position.y = ( Math.sin( ( i + t ) * 0.9 ) * 20 ) +	( Math.sin( ( i + t ) * 0.5 ) * 50 );
+				circle.position.x = ( Math.sin( ( i + t ) * 0.5 ) * 20 ) +	( Math.sin( ( i + t ) * 0.5 ) * 50 );
+			}
+			
+			camera.position.z -= 1;
+			
+			//var scale = Math.sin( t * 10 + group.position.distanceTo( scene.position ) * 0.5 ) + 1;
+			//group.rotation.z += scale * 0.01;
+			/*
+			group.rotation.x = scale * 2;
+			group.rotation.y = scale;
+			*/
+			
+			//parent.position.distanceTo( scene.position );
+
+	    };
+
+	    return that;
+	
+	}	
+	
+
+
+	</script>
+
+</html>

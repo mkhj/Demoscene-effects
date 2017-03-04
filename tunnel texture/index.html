@@ -1,0 +1,614 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<script src="js/pt.js"></script>
+		<script src="js/three.min.js"></script>
+		<style>
+			html, body{
+				margin: 0;
+	            padding: 0;
+			}
+			body{
+				background-color: black;
+			}
+		</style>
+    </head>
+    <body>
+
+    </body>
+    <script>
+	"use strict";
+
+	var startTime	= Date.now();
+
+	window.addEventListener('load', function() {
+		demo.start();
+	});
+
+	function DegToRad(deg){
+		return (Math.PI / 180) * deg;
+	}
+	
+	function RadToDeg(rad){
+		return (180 / Math.PI) * rad;
+	}
+	
+	function randomIntFromInterval(min, max){
+	    return Math.floor(Math.random()*(max-min+1)+min);
+	}
+
+	var demo = {
+		WIDTH: window.innerWidth,
+		HEIGHT: window.innerHeight,
+		
+		scene: null,
+		camera: null,
+		renderer: null,
+		
+		loadingManager: new THREE.LoadingManager(),
+		
+		player: null,	
+		
+		data: {
+			images: [
+				{u: 'img/star.png'},
+				{u: 'img/water.jpeg'}
+			]
+		},
+		
+		effects: {
+			tunnel: null,
+			tunnel2: null
+		},
+		
+		loader: function(callback){
+			
+			demo.player.load('mods/culture-shock.mod');
+			demo.player.onReady = function () {
+				demo.player.repeat = true;
+				//demo.player.play();
+			};
+			
+		},
+		
+		start: function(){
+			demo.setup.all();
+			
+			demo.loader();
+			
+			demo.effects.tunnel2 = tunnel2({
+				scene: demo.scene,
+				camera: demo.camera
+			});
+			
+			demo.effects.tunnel  = cube({
+				scene: demo.scene,
+				camera: demo.camera
+			})
+			
+			/*
+			demo.effects.tunnel = starField({
+				scene: demo.scene,
+			    stars: 35000,
+				size:3
+			});
+			*/
+			
+			demo.loadingManager.onProgress = function ( item, loaded, total ) {
+			    // this gets called after any item has been loaded
+			    console.log('texture', item);
+			};
+			
+			demo.loadingManager.onLoad = function () {
+			    // all textures are loaded
+			    //demo.animate();
+			};
+			
+			demo.animate();
+		},
+		
+		animate: function(){
+			
+			// Defined in the RequestAnimationFrame.js file, this function means that the
+			// animate function is called upon timeout:
+			// Read more about requestAnimationFrame at http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
+			requestAnimationFrame(demo.animate);
+			
+			demo.render();
+		},
+		
+		render: function(){
+			
+			// Render the scene.
+			demo.renderer.render(demo.scene, demo.camera);
+			
+			demo.effects.tunnel2.update();	
+			demo.effects.tunnel.update();	
+			
+			//demo.camera.position.y = 0;
+			//demo.camera.position.x = 0;
+			//demo.camera.position.y += 0.02;
+
+			demo.camera.lookAt( demo.scene.position ); //keep the camerea on the object
+		},
+		
+		setup: {
+			all: function(){
+				window.addEventListener('resize', demo.events.onResize);
+				
+				demo.setup.createRenderer();
+				demo.setup.createScene();
+				demo.setup.createCamera();
+				
+				
+				demo.setup.createPlayer();
+			},
+			
+			createRenderer: function(){
+				//  Create a renderer and add it to the DOM.
+				demo.renderer = new THREE.WebGLRenderer({ antialias:true});
+				//demo.renderer.setClearColor( 0xffffff, 0);
+				demo.renderer.setSize(demo.WIDTH, demo.HEIGHT);
+				
+				document.body.appendChild(demo.renderer.domElement);
+			},
+			
+			createScene: function(){
+				// Create the scene and set the scene size.
+				demo.scene = new THREE.Scene();
+				//demo.scene.fog = new THREE.FogExp2( 0x000000, 0.0011);
+			},
+			
+			createCamera: function(){
+				//demo.camera = new THREE.PerspectiveCamera(60, demo.WIDTH / demo.HEIGHT, 75, 1000);
+			    //demo.camera.position.set(0, 0, 7);
+			
+				demo.camera = new THREE.PerspectiveCamera(40, demo.WIDTH / demo.HEIGHT, 0.1, 10000 );
+				demo.camera.position.set(0, 0, 7);
+				
+				// http://codepen.io/puritanner/pen/ByexqX?editors=0010
+				// https://www.script-tutorials.com/webgl-with-three-js-lesson-3/
+				// 
+				//var helper = new THREE.CameraHelper(demo.camera);	
+				//demo.scene.add(helper);
+				
+			    demo.scene.add(demo.camera);
+			},
+			
+			createPlayer: function(){
+				demo.player = new Protracker();
+			}
+		},
+		
+		events: {
+			onResize: function(){
+				// Create an event listener that resizes the renderer with the browser window.
+		      	demo.WIDTH = window.innerWidth,
+		      	demo.HEIGHT = window.innerHeight;
+		      
+				demo.renderer.setSize(demo.WIDTH, demo.HEIGHT);
+		      	demo.camera.aspect = demo.WIDTH / demo.HEIGHT;
+		      	demo.camera.updateProjectionMatrix();
+			}
+			
+		}
+	};
+	
+	
+
+	/*
+	 * Creates random placed, rotating color-changing particles.
+	 */
+	var starField = function(options) {
+	    var that = {};
+	    var scene = options.scene;
+	    var stars = options.stars;
+	    var size = options.size;
+	
+	   	var geometry = new THREE.Geometry();
+		var particles;
+
+	    for (var i=0; i<stars; i++) {
+	        var vertex = new THREE.Vector3();
+	        vertex.x = Math.random() * 1000 - 500;
+	        vertex.y = Math.random() * 1000 - 500;
+	        vertex.z = Math.random() * 1000 - 500;
+	        geometry.vertices.push(vertex);
+	    }
+	
+		
+		var texture = new THREE.Texture();
+		
+		var loader = new THREE.ImageLoader( demo.loadingManager );
+		loader.load( 'img/star.png', function ( image ) {
+			texture.image = image;
+			texture.needsUpdate = true;
+		} );
+	
+		// texture a loader
+		/*
+		var texture = new THREE.TextureLoader().load(
+				'img/star.png',
+				function(tex){
+						console.log('loading texture');
+
+						texture.needsUpdate = true;
+						
+				}
+			);
+			*/
+
+	    var material = new THREE.PointsMaterial({
+	        color: 0xffffff,
+			//color: 0x0033ff,
+	        map: texture,
+	        depthTest:false,
+	        blending: THREE.AdditiveBlending,
+	        transparent: true,
+	        opacity: 1,
+	        size:size
+	    });
+	
+	    //material.color.setHSV(Math.random(), 1, 1);
+		material.color.setHSL(Math.random(), 1, 1);
+		//ColorConverter.setHSV( material.color, Math.random(), 1, 1)
+
+	    particles = new THREE.Points(geometry, material);
+	    particles.rotation.x = Math.random() * 15;
+	    particles.rotation.y = Math.random() * 15;
+	    particles.rotation.z = Math.random() * 15;
+
+
+	    scene.add(particles);
+
+	    /*
+	     * Animate
+	     */
+	    that.update = function() {
+	        var timer = Date.now() * 0.00001;
+			material.color.setRGB((timer % 1).toFixed(1), 0.9, 0.9);
+			
+	        //particles.rotation.x = Date.now() * 0.00005;
+	
+	        particles.rotation.x += 0.0005;
+			particles.rotation.y += 0.001;
+	
+			
+			// makes particle bounce/pulsate
+			// for bouncing move the camera.z away form 0
+			/*
+			var dtime	= Date.now() - startTime;
+			particles.scale.x	= 1.0 + 0.3*Math.sin(dtime/300);
+			particles.scale.y	= 1.0 + 0.3*Math.sin(dtime/300);
+			particles.scale.z	= 1.0 + 0.3*Math.sin(dtime/300);
+			*/
+	
+			//geometry.rotateX(Math.cos( time ) * 0.00001);
+			//geometry.rotateZ(Math.sin( time ) * 0.00005);
+	
+			//console.log(Date.now() % 10000);
+	
+			/*
+			if(Date.now() % 10000 < 10){
+				particles.rotation.x = Math.random() * 0.00005;
+			    particles.rotation.y = Math.random() * 0.00005;
+			    particles.rotation.z = Math.random() * 0.00005;	
+			console.log('update starfield');			
+			}*/
+			//console.log('update starfield');
+	    };
+
+	    return that;
+	};
+
+	
+	var cube = function(options){
+		console.log('cube', options);
+			
+		var that = {};
+		var camera = options.camera;
+    	var scene = options.scene;
+
+		var geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
+		var material = new THREE.MeshPhongMaterial({ color: 0x1C4A8C });
+		var cube = new THREE.Mesh(geometry, material);
+		scene.add(cube);
+		
+		cube.visible = false;
+		
+		/*
+		var light = new THREE.DirectionalLight(0xffffff, 0.55);
+		light.position.set( 2, 2, -4 ).normalize();
+		scene.add(light);
+		*/
+		
+
+		
+		/*
+		var ballMat = new THREE.MeshStandardMaterial( {
+							roughness: 0,
+							metalness: 0.0,
+							color: 0xffffff
+						});
+		
+		var ballGeometry = new THREE.SphereGeometry( 0.1213, 32, 32 );
+		var ballMesh = new THREE.Mesh( ballGeometry, ballMat );
+		ballMesh.position.set( 1, 0.1213, 1 );
+		ballMesh.castShadow = true;
+		scene.add( ballMesh );
+		*/
+		
+		var params = {
+			shadows: true,
+			exposure: 0.68,
+			bulbPower: 1700,
+			hemiIrradiance: 0.0001
+		};
+		
+		
+		var bulbGeometry = new THREE.SphereGeometry( 0.02, 16, 8 );
+		var bulbMat = new THREE.MeshStandardMaterial( {
+			emissive: 0xffffee,
+			emissiveIntensity: 1,
+			color: 0xff2288
+		});
+		
+		/*
+		var bulbLight = new THREE.PointLight( 0xff2288, 1, 300, 20 );
+		bulbLight.add( new THREE.Mesh( bulbGeometry, bulbMat ) );
+		bulbLight.position.set( 0, 0, 12 );
+		bulbLight.castShadow = true;
+		bulbLight.angle = Math.PI*2;
+		*/
+		
+		var bulbLight = new THREE.SpotLight( 0xffffff );
+		bulbLight.intensity = 1;
+		bulbLight.distance = 100;
+		bulbLight.angle = 0.5;
+		bulbLight.castShadow = true;
+		bulbLight.ratation = Math.PI;
+		bulbLight.position.set( 0, 0, 5 );
+		
+		bulbLight.add( new THREE.Mesh( bulbGeometry, bulbMat ) );
+		
+		scene.add( bulbLight );
+		
+		/*
+		var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+		directionalLight.add( new THREE.Mesh( bulbGeometry, bulbMat ) );
+		directionalLight.position.set( 0, 1, 1 );
+		directionalLight.rotation.y = Math.PI;
+		scene.add( directionalLight );
+		*/
+		
+		//var hemiLight = new THREE.HemisphereLight( 0xddeeff, 0x0f0e0d, 0.02 );
+		//scene.add( hemiLight );
+		
+		var previousShadowMap = false;
+
+		/*
+	     * Animate
+	     */
+	    that.update = function() {
+		  cube.rotation.x += 0.01;
+		  cube.rotation.y += 0.01;
+		
+			/*
+			bulbLight.castShadow = params.shadows;
+			if( params.shadows !== previousShadowMap ) {
+				previousShadowMap = params.shadows;
+			}
+			*/
+			
+			bulbLight.power = 200;
+			//bulbMat.emissiveIntensity = bulbLight.intensity / Math.pow( 0.02, 2.0 ); // convert from intensity to irradiance at bulb surface
+			//hemiLight.intensity = 1.4; // hemiLuminousIrradiances[ params.hemiIrradiance ];
+			
+			var time = Date.now() * 0.0005;
+			
+			bulbLight.position.z -= 0.01;
+			
+			//var delta = clock.getDelta();
+			//bulbLight.position.y = Math.cos( time ) * 0.75 + 1.25;
+			
+			//bulbLight.position.z = Math.cos( time ) * 5.75 + 1.25;
+	    };
+
+	    return that;
+	}
+	
+	var tunnel2 = function(options){
+		console.log('tunnel2', options);
+			
+		var that = {};
+		var camera = options.camera;
+    	var scene = options.scene;
+
+		/*
+			0xff8000
+			0x44FFAA
+			0xff4400
+		*/
+	
+	/*
+		var light	= new THREE.DirectionalLight( 0x44FFAA, 1.5 );
+		light.position.set( 1, 1, 0 ).normalize();
+		scene.add( light );
+
+		var light	= new THREE.DirectionalLight( 0x44FFAA, 1.5 );
+		light.position.set( -1, 1, 0 ).normalize();
+		scene.add( light );
+		
+		var light	= new THREE.PointLight( 0xff2288, 15, 25 );
+		light.position.set( 0, -3, 0 );
+		scene.add( light );
+	
+		var light	= new THREE.PointLight( 0x8844ff, 20, 30 );
+		light.position.set( 3, 3, 0 );
+		scene.add( light );
+*/	
+
+		var geometry	= new THREE.CylinderGeometry( 
+								1, 		// radius top
+								1, 		// radius bottom
+								30, 	// height
+								32, 	// radius segments
+								1, 		// height segments
+								true 	// open ended
+							);
+		
+				
+		var texture = new THREE.Texture();
+		var loader = new THREE.ImageLoader( demo.loadingManager );
+		loader.load( 'img/water.jpg', function ( image ) {
+			texture.image = image;
+			texture.needsUpdate = true;
+			
+		} );
+		
+		texture.wrapT	= THREE.RepeatWrapping;
+
+		var material	= new THREE.MeshLambertMaterial({color : 0xFFFFFF, map : texture});
+		material.side = THREE.DoubleSide;					// visible on both side of the object
+		
+		//var material 	= new THREE.MeshPhongMaterial({ color: 0x1C4A8C });
+		var mesh		= new THREE.Mesh( geometry, material );
+		
+		mesh.rotation.x	= Math.PI/2;
+		mesh.flipSided	= true;								// does not seem to do what it is suppose to
+		
+		scene.fog	= new THREE.FogExp2( 0x000000, 0.15 );	//create a black fog in the center of the tunnel
+		
+		scene.add(mesh);
+		
+		camera.lookAt(scene.position);
+		
+		var r = 0;
+		var r2 = 0;
+
+		/*
+	     * Animate
+	     */
+	    that.update = function() {
+			var t = Date.now() * 0.001;
+		
+			// move the texture to give the illusion of moving thru the tunnel
+			texture.offset.y	-= Math.sin( 0.003 );	// speed + moving forward
+			texture.offset.y	%= 1;
+			//texture.needsUpdate	= true;
+
+			// move the camera back and forth
+			/*
+			var seconds		= Date.now() / 1000;
+			var radius		= 0.70;
+			var angle		= Math.sin(0.75 * seconds * Math.PI) / 4;
+			//angle	= (seconds*Math.PI)/4;
+			camera.position.x	= Math.cos(angle - Math.PI/2) * radius;
+			camera.position.y	= Math.sin(angle - Math.PI/2) * radius;
+			camera.rotation.z	= angle;
+			*/
+			
+			r += 0.02;
+			r2 += 0.01;
+			var dist = 0.4;
+			var dist2 = 0.2;
+			
+/*
+			camera.position.x = dist*Math.cos(r) * 0.9;
+			camera.position.y = dist*Math.sin(r) * 2;
+			
+			mesh.position.x = dist2*Math.sin(r2);
+			mesh.position.y = dist2*Math.cos(r);
+*/
+
+	    };
+
+	    return that;
+		
+		
+	}
+	
+	var tunnel = function(options){
+		console.log('tunnel', options);
+			
+		var that = {};
+		var camera = options.camera;
+    	var scene = options.scene;
+
+
+		
+		/*
+		var light	= new THREE.DirectionalLight( 0xff8000, 1.5 );
+		light.position.set( 1, 1, 0 ).normalize();
+		scene.add( light );
+		
+		var light	= new THREE.DirectionalLight( 0xff8000, 1.5 );
+		light.position.set( -1, 1, 0 ).normalize();
+		scene.add( light );
+		
+		var light	= new THREE.PointLight( 0x44FFAA, 15, 25 );
+		light.position.set( 0, -3, 0 );
+		scene.add( light );
+		
+		var light	= new THREE.PointLight( 0xff4400, 20, 30 );
+		light.position.set( 3, 3, 0 );
+		scene.add( light );
+
+
+		var geometry	= new THREE.CylinderGeometry( 
+								1, 		// radius top
+								1, 		// radius bottom
+								30, 	// height
+								32, 	// radius segments
+								1, 		// height segments
+								true 	// open ended
+							);
+							
+		var texture = new THREE.Texture();
+		var loader = new THREE.ImageLoader( demo.loadingManager );
+		loader.load( 'img/water.jpg', function ( image ) {
+			texture.image = image;
+			texture.needsUpdate = true;
+			
+		} );
+		
+		texture.wrapT	= THREE.RepeatWrapping;
+
+		var material	= new THREE.MeshLambertMaterial({color : 0xFFFFFF, map : texture});
+		var mesh		= new THREE.Mesh( geometry, material );
+		
+		mesh.rotation.x	= Math.PI/2;
+		mesh.flipSided	= true;
+		*/
+
+		/*
+	     * Animate
+	     */
+	    that.update = function() {
+
+/*				
+			// move the texture to give the illusion of moving thru the tunnel
+			texture.offset.y	+= 0.008;
+			texture.offset.y	%= 1;
+			texture.needsUpdate	= true;
+
+			// move the camera back and forth
+			var seconds		= Date.now() / 1000;
+			var radius		= 0.70;
+			var angle		= Math.sin(0.75 * seconds * Math.PI) / 4;
+			//angle	= (seconds*Math.PI)/4;
+			camera.position.x	= Math.cos(angle - Math.PI/2) * radius;
+			camera.position.y	= Math.sin(angle - Math.PI/2) * radius;
+			camera.rotation.z	= angle;
+*/
+	    };
+
+	    return that;
+	}
+
+	</script>
+
+</html>
