@@ -19,3 +19,12 @@
 
 * http://codef.santo.fr/ Canvas Oldshool Demo Effect Framework
 * https://threejs.org/ Cross-browser JavaScript library and Application 
+
+
+## Tips & Tricks
+
+#### Starting a web server without installing anything
+
+* python -m SimpleHTTPServer 8080
+* python3 -m http.server --cgi 8080
+* php -S localhost:8080
