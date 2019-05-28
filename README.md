@@ -13,3 +13,9 @@
 * https://webglfundamentals.org/
 * https://thebookofshaders.com/ (Editor: http://editor.thebookofshaders.com/)
 * http://www.adrianboeing.com/files/webgl-demoscene.pdf
+
+
+## Tools
+
+* http://codef.santo.fr/ Canvas Oldshool Demo Effect Framework
+* https://threejs.org/ Cross-browser JavaScript library and Application 
