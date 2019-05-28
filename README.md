@@ -18,7 +18,7 @@
 ## Tools
 
 * http://codef.santo.fr/ Canvas Oldshool Demo Effect Framework
-* https://threejs.org/ Cross-browser JavaScript library and Application 
+* https://threejs.org/ (CDN https://cdnjs.com/libraries/three.js/) Cross-browser JavaScript library and Application 
 
 
 ## Tips & Tricks
