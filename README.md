@@ -8,6 +8,8 @@
 
 ## Getting started
 
+* http://nehe.gamedev.net/
+* https://learnopengl.com/
 * https://webglfundamentals.org/
 * https://thebookofshaders.com/ (Editor: http://editor.thebookofshaders.com/)
 * http://www.adrianboeing.com/files/webgl-demoscene.pdf
