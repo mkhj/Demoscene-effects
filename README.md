@@ -1,10 +1,10 @@
 ## Welcome to my WebGL playground
 
+### Demoscene effects
+
 * https://mkhj.github.io/WebGL/starfield/
 * https://mkhj.github.io/WebGL/tunnel%20cubes/
 * https://mkhj.github.io/WebGL/tunnel%20texture/
-
-
 
 ### Getting started
 
