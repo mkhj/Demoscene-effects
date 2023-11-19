@@ -6,7 +6,7 @@
 
 
 
-## Getting started
+### Getting started
 
 * http://nehe.gamedev.net/
 * https://learnopengl.com/
@@ -18,20 +18,24 @@
 Perspective Projections
 http://learnwebgl.brown37.net/08_projections/projections_perspective.html
 
-## Tools
+### Tools
 
 * http://codef.santo.fr/ Canvas Oldshool Demo Effect Framework
 * https://threejs.org/ (CDN https://cdnjs.com/libraries/three.js/) Cross-browser JavaScript library and Application 
 
-## Demos
+### Demos
 
 * Sanity – Interference Recoded (http://www.suxxs.de/InterferenceRecoded/)
 * Rgba & TBC - Elevated (http://301.untergrund.net/elevated.html)
 
-## Tips & Tricks
+### Tips & Tricks
 
 #### Starting a web server without installing anything
 
 * python -m SimpleHTTPServer 8080
 * python3 -m http.server --cgi 8080
 * php -S localhost:8080
+
+#### Troubleshooting
+
+* No sound in Safari - Go to: Settings -> Websites -> Auto-Play -> Find the website -> Allow All Auto-Play
