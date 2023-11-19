@@ -66,12 +66,14 @@
 			console.log('loader called');
 
 			
-			demo.player.load('https://mkhj.github.io/WebGL/starfield/mods/spacedeb.mod');
+			demo.player.load('./mods/spacedeb.mod');
+			demo.player.autostart = true
+			/*
 			demo.player.onReady = function () {
 				demo.player.repeat = true;
 				demo.player.play();
 			};
-			
+			*/
 		},
 		
 		start: function(){
