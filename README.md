@@ -1,6 +1,6 @@
 ## Welcome to my WebGL playground
 
-### Demoscene effects
+### My demoscene effects
 
 * https://mkhj.github.io/WebGL/starfield/
 * https://mkhj.github.io/WebGL/tunnel%20cubes/
@@ -23,7 +23,7 @@ http://learnwebgl.brown37.net/08_projections/projections_perspective.html
 * http://codef.santo.fr/ Canvas Oldshool Demo Effect Framework
 * https://threejs.org/ (CDN https://cdnjs.com/libraries/three.js/) Cross-browser JavaScript library and Application 
 
-### Demos
+### Collection of demos
 
 * Sanity – Interference Recoded (http://www.suxxs.de/InterferenceRecoded/)
 * Rgba & TBC - Elevated (http://301.untergrund.net/elevated.html)
