@@ -1,18 +1,15 @@
 /*
-  (c) 2012-2021 Noora Halme et al. (see AUTHORS)
+  fast tracker 2 module player for web audio api
+  (c) 2015 firehawk/tda  (firehawk@haxor.fi)
 
-  This code is licensed under the MIT license:
-  http://www.opensource.org/licenses/mit-license.php
-
-  Fast Tracker 2 module player class
-
-  Reading material:
+  reading material:
   - ftp://ftp.modland.com/pub/documents/format_documentation/FastTracker%202%20v2.04%20(.xm).html
   - http://sid.ethz.ch/debian/milkytracker/milkytracker-0.90.85%2Bdfsg/resources/reference/xm-form.txt
   - ftp://ftp.modland.com/pub/documents/format_documentation/Tracker%20differences%20for%20Coders.txt
   - http://wiki.openmpt.org/Manual:_Compatible_Playback
 
-  Greets to Guru, Alfred and CCR for their work figuring out the .xm format. :)
+  greets to guru, alfred and ccr for their work figuring out the .xm format. :)
+
 */
 
 function Fasttracker()
