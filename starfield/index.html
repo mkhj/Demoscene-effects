@@ -4,7 +4,10 @@
     <head>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<script src="js/pt.js"></script>
+		<script type="text/javascript" src="http://localhost:8080/js/tracker/player.js"></script>
+		<script type="text/javascript" src="http://localhost:8080/js/tracker/pt.js"></script>
+		<script type="text/javascript" src="http://localhost:8080/js/tracker/st3.js"></script>
+		<script type="text/javascript" src="http://localhost:8080/js/tracker/ft2.js"></script>
 		<script src="js/three.min.js"></script>
 		<style>
 			html, body{
@@ -25,6 +28,11 @@
 
 	window.addEventListener('load', function() {
 		demo.start();
+	});
+
+	window.addEventListener('click', function() {
+		console.log('click click click')
+		demo.player.play()
 	});
 
 	function DegToRad(deg){
@@ -56,29 +64,9 @@
 		
 		loader: function(callback){
 			console.log('loader called');
-			/*
-			var loadImages = function(callback){
-				var i, l = demo.data.images.length;
-				var loadImagesProgress = 0;
-				
-				demo.data.images.map(function(a,b) {
-					a.img = new Image();
-					a.img.onload = function(a) { 
-						console.log(a);
-						loadImagesProgress++; 
-						if (loadImagesProgress == l) {
-							console.log('All images loaded!');
-							callback();
-						};
-					}
-					a.img.src = a.u;
-				});
-			};
+
 			
-			loadImages(callback);
-			*/
-			
-			demo.player.load('mods/culture-shock.mod');
+			demo.player.load('http://localhost:8080/mods/spacedeb.mod');
 			demo.player.onReady = function () {
 				demo.player.repeat = true;
 				demo.player.play();
@@ -128,32 +116,6 @@
 			demo.camera.position.x += 0.01;
 			demo.camera.position.y += 0.02;
 			
-			/*
-			demo.camera.position.x -= 2 * 0.05;
-			demo.camera.position.y -= 0.05;
-			demo.camera.position.z += 3 * 0.05;
-			*/
-			
-			/*
-			demo.camera.position.x += ( demo.camera.position.x ) * 0.05;
-			demo.camera.position.y += (- demo.camera.position.y ) * 0.05;
-			*/
-			
-			/*
-			var timer = new Date().getTime() * 0.0005;
-		  	demo.camera.position.x = Math.floor(Math.cos( timer ) * 200);
-		  	demo.camera.position.Y = Math.floor((Math.sin( timer )) * 200);
-		
-			//demo.camera.lookAt( demo.scene.position );
-			*/
-			
-			/*
-		 	var timer = Date.now() * 0.0001;
-
-		    demo.camera.position.x = Math.cos( timer ) * 200;
-		    demo.camera.position.z = Math.sin( timer ) * 200;
-		    demo.camera.lookAt( demo.scene.position );
-			*/
 		},
 		
 		setup: {
@@ -189,7 +151,7 @@
 			},
 			
 			createPlayer: function(){
-				demo.player = new Protracker();
+				demo.player = new Modplayer();
 			}
 		},
 		
@@ -236,18 +198,6 @@
 			texture.needsUpdate = true;
 		} );
 	
-		// texture a loader
-		/*
-		var texture = new THREE.TextureLoader().load(
-				'img/star.png',
-				function(tex){
-						console.log('loading texture');
-
-						texture.needsUpdate = true;
-						
-				}
-			);
-			*/
 
 	    var material = new THREE.PointsMaterial({
 	        color: 0xffffff,
@@ -283,30 +233,7 @@
 	
 	        particles.rotation.x += 0.0005;
 			particles.rotation.y += 0.001;
-	
-			
-			// makes particle bounce/pulsate
-			// for bouncing move the camera.z away form 0
-			/*
-			var dtime	= Date.now() - startTime;
-			particles.scale.x	= 1.0 + 0.3*Math.sin(dtime/300);
-			particles.scale.y	= 1.0 + 0.3*Math.sin(dtime/300);
-			particles.scale.z	= 1.0 + 0.3*Math.sin(dtime/300);
-			*/
-	
-			//geometry.rotateX(Math.cos( time ) * 0.00001);
-			//geometry.rotateZ(Math.sin( time ) * 0.00005);
-	
-			//console.log(Date.now() % 10000);
-	
-			/*
-			if(Date.now() % 10000 < 10){
-				particles.rotation.x = Math.random() * 0.00005;
-			    particles.rotation.y = Math.random() * 0.00005;
-			    particles.rotation.z = Math.random() * 0.00005;	
-			console.log('update starfield');			
-			}*/
-			//console.log('update starfield');
+
 	    };
 
 	    return that;
