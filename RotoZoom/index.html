@@ -1,0 +1,98 @@
+<html>
+	<head>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r73/three.min.js"></script>
+	<script type="text/javascript" src="./js/tracker/player.js"></script>
+	<script type="text/javascript" src="./js/tracker/pt.js"></script>
+	<script type="text/javascript" src="./js/tracker/st3.js"></script>
+	<script type="text/javascript" src="./js/tracker/ft2.js"></script>
+	<style>
+		html,
+		body{
+			background-color: #000;
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: 100%;
+			display: block;
+		}
+
+		#canvas {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%); 
+			border: 1px #fff solid;
+			display: block;
+    		margin: 0 auto;
+		}
+	</style>
+</head>
+
+<body>
+	<canvas id="canvas"></canvas>
+	<script>
+		/** 3js stuff */
+		var canvas = document.getElementById('canvas');
+		var scene = new THREE.Scene();
+		var renderer = new THREE.WebGLRenderer({
+			canvas: canvas,
+			antialias: true
+		});
+
+		renderer.setSize(600, 500);
+
+		var player = new Modplayer();
+		player.load('./mods/hardfloor.mod');
+		player.autostart = true
+		
+		var camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientWidth, 1, 1000);
+		var clock = new THREE.Clock();
+
+		var texture = new THREE.TextureLoader().load( './gfx/fnuque.png', function ( texture ) {
+
+			texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+			texture.offset.set( 0, 0 );
+			texture.repeat.set( 15, 15 );
+
+		} );
+
+		var geometry = new THREE.PlaneGeometry( 600, 600 );
+		var material = new THREE.MeshBasicMaterial( {map: texture, side: THREE.DoubleSide} );
+		var plane = new THREE.Mesh( geometry, material );
+		scene.add( plane );
+
+		camera.position.z = 120;
+		camera.position.x = 100;
+
+
+		var angle = 0;
+
+		render();
+
+		function render() {
+			requestAnimationFrame(render);
+
+			if (canvas.width !== canvas.clientWidth || canvas.height !== canvas.clientHeight) {
+				renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
+				camera.aspect = canvas.clientWidth / canvas.clientHeight;
+				camera.updateProjectionMatrix();
+			}
+
+			angle++;
+			angle %= 360;
+
+			var c  = Math.sin(angle * Math.PI / 180);
+
+			var dt = clock.getDelta();
+			plane.rotation.z += dt * 2 * Math.PI / 14;
+
+			camera.translateZ( - c )
+			camera.updateProjectionMatrix();
+
+			renderer.render(scene, camera);
+		}
+	</script>
+
+</body>
+
+</html>
