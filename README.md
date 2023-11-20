@@ -2,9 +2,10 @@
 
 ### My demoscene effects
 
-* https://mkhj.github.io/WebGL/starfield/
-* https://mkhj.github.io/WebGL/tunnel%20cubes/
-* https://mkhj.github.io/WebGL/tunnel%20texture/
+* RotoZoom - https://mkhj.github.io/WebGL/RotoZoom/
+* Star field - https://mkhj.github.io/WebGL/starfield/
+* Tunnel - https://mkhj.github.io/WebGL/tunnel%20cubes/
+* Tunnel - https://mkhj.github.io/WebGL/tunnel%20texture/
 
 ### What is the Demoscene
 The Demoscene is a subculture and community of computer enthusiasts who create real-time audiovisual demonstrations, known as demos. These demos are typically small, self-contained programs that showcase the artistic and technical capabilities of a computer system, often pushing hardware limits to create impressive visual and auditory experiences. Demoscene productions are shared at events and online, emphasizing creativity, programming skill, and efficient use of resources within tight constraints. Participants, known as demosceners, compete and collaborate to produce visually stunning and technically innovative demos across various platforms.
