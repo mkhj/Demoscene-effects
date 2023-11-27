@@ -24,11 +24,12 @@ http://learnwebgl.brown37.net/08_projections/projections_perspective.html
 
 ### Tools
 
-* https://threejs.org/ (CDN https://cdnjs.com/libraries/three.js/) Cross-browser JavaScript library and Application 
+* https://threejs.org/ (CDN https://cdnjs.com/libraries/three.js/) (Cross-browser JavaScript library and Application)
 * https://iquilezles.org/articles/functions/
 * https://graphtoy.com
-* https://github.com/tweenjs/tween.js/
-* http://codef.santo.fr/ Canvas Oldshool Demo Effect Framework
+* https://github.com/tweenjs/tween.js/ (Animation engine)
+* https://animejs.com (Animation engine)
+* http://codef.santo.fr/ (Canvas Oldshool Demo Effect Framework)
 
 ### Collection of demos ported to Javascript
 
