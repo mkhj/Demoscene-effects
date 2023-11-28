@@ -5,10 +5,10 @@ The Demoscene is a subculture and community of computer enthusiasts who create r
 
 ### My demoscene effects
 
-* RotoZoom - https://mkhj.github.io/Demoscene-effects/RotoZoom/
-* Star field - https://mkhj.github.io/Demoscene-effects/starfield/
-* Tunnel - https://mkhj.github.io/Demoscene-effects/tunnel%20cubes/
-* Tunnel - https://mkhj.github.io/Demoscene-effects/tunnel%20texture/
+* RotoZoom - https://mkhj.github.io/Demoscene-effects/effects/RotoZoom/
+* Star field - https://mkhj.github.io/Demoscene-effects/effects/starfield/
+* Tunnel - https://mkhj.github.io/Demoscene-effects/effects/tunnel%20cubes/
+* Tunnel - https://mkhj.github.io/Demoscene-effects/effects/tunnel%20texture/
 
 ### Getting started
 
