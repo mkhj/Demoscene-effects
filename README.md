@@ -18,6 +18,7 @@ The Demoscene is a subculture and community of computer enthusiasts who create r
 * https://webglfundamentals.org/
 * https://thebookofshaders.com/ (Editor: http://editor.thebookofshaders.com/)
 * http://www.adrianboeing.com/files/webgl-demoscene.pdf
+* https://hofk.de/main/discourse.threejs/BeginnerExample/BeginnerExample.html
 
 Perspective Projections
 http://learnwebgl.brown37.net/08_projections/projections_perspective.html
