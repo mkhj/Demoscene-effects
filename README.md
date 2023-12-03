@@ -25,7 +25,7 @@ http://learnwebgl.brown37.net/08_projections/projections_perspective.html
 
 ### Tools
 
-* https://threejs.org/ ([CDN](https://cdnjs.com/libraries/three.js/) (Cross-browser JavaScript library and Application)
+* https://threejs.org/ ([CDN](https://cdnjs.com/libraries/three.js/)) (Cross-browser JavaScript library and Application)
 * https://iquilezles.org/articles/functions/
 * https://graphtoy.com
 * https://github.com/tweenjs/tween.js/ (Animation engine) ([Graphs](https://sole.github.io/tween.js/examples/03_graphs.html))
