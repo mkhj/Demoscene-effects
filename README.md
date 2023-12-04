@@ -36,7 +36,7 @@ http://learnwebgl.brown37.net/08_projections/projections_perspective.html
 * https://iquilezles.org/articles/functions/
 * https://graphtoy.com
 
-### Collection of demos ported to Javascript
+### Collection of demos ported to Javascript / WebGl
 
 * Sanity – Interference Recoded (http://www.suxxs.de/InterferenceRecoded/)
 * Rgba & TBC - Elevated (http://301.untergrund.net/elevated.html)
