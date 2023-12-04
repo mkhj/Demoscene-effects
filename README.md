@@ -30,7 +30,7 @@ http://learnwebgl.brown37.net/08_projections/projections_perspective.html
 * http://codef.santo.fr/ (Canvas Oldshool Demo Effect Framework)
   
 #### Easing functions
-* https://github.com/tweenjs/tween.js/ (Animation engine) ([Easing functions 1](https://sole.github.io/tween.js/examples/03_graphs.html))
+* https://github.com/tweenjs/tween.js/ (Animation engine) ([Overview](https://sole.github.io/tween.js/examples/03_graphs.html))
 * https://animejs.com (Animation engine)
 * https://easings.net (Easing function overview)
 * https://iquilezles.org/articles/functions/
