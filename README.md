@@ -29,12 +29,13 @@ http://learnwebgl.brown37.net/08_projections/projections_perspective.html
 * https://threejs.org/ ([CDN](https://cdnjs.com/libraries/three.js/)) (Cross-browser JavaScript library and Application)
 * http://codef.santo.fr/ (Canvas Oldshool Demo Effect Framework)
   
-#### Easing functions
+#### Tweening tools
 * https://github.com/tweenjs/tween.js/ (Animation engine) ([Overview](https://sole.github.io/tween.js/examples/03_graphs.html))
 * https://animejs.com (Animation engine)
 * https://easings.net (Easing function overview)
 * https://iquilezles.org/articles/functions/
 * https://graphtoy.com
+* https://github.com/glslify/glsl-easings
 
 ### Collection of demos ported to Javascript / WebGl
 
