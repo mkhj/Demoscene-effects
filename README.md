@@ -31,6 +31,9 @@ http://learnwebgl.brown37.net/08_projections/projections_perspective.html
 #### Demo effect frameworks
 * https://threejs.org/ ([CDN](https://cdnjs.com/libraries/three.js/)) (Cross-browser JavaScript library and Application)
 * http://codef.santo.fr/ (Canvas Oldshool Demo Effect Framework)
+
+#### Shaders
+* https://mrdoob.com/projects/glsl_sandbox/
   
 #### Tweening tools
 * https://github.com/tweenjs/tween.js/ (Animation engine) ([Overview](https://sole.github.io/tween.js/examples/03_graphs.html))
