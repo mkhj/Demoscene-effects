@@ -40,6 +40,12 @@ http://learnwebgl.brown37.net/08_projections/projections_perspective.html
 * https://graphtoy.com
 * https://github.com/glslify/glsl-easings
 
+#### Timeline
+* Timeliner - https://github.com/zz85/timeliner
+* Frame.js - https://github.com/mrdoob/frame.js/
+* Keytime editor - https://github.com/mattdesl/keytime-editor/
+* Tweentime - https://github.com/idflood/TweenTime/
+
 ### Collection of demos ported to Javascript / WebGl
 
 * Sanity – Interference Recoded (http://www.suxxs.de/InterferenceRecoded/)
