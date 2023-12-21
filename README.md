@@ -42,6 +42,7 @@ http://learnwebgl.brown37.net/08_projections/projections_perspective.html
 * https://iquilezles.org/articles/functions/
 * https://graphtoy.com
 * https://github.com/glslify/glsl-easings
+* https://github.com/0b5vr/automaton (Animation engine)
 
 #### Timeline
 * Timeliner - https://github.com/zz85/timeliner
