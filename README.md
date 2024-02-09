@@ -5,7 +5,7 @@ The Demoscene is a subculture and community of computer enthusiasts who create r
 
 ### My experients with demos
 #### Demos
-* Small Demo - https://mkhj.github.io/Demoscene-effects/effects/small%20demo/
+* Small Demo - https://mkhj.github.io/Demoscene-effects/effects/small%20demo/ (work in progress)
 
 #### Single effects
 
