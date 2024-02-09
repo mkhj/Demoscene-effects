@@ -5,10 +5,10 @@ The Demoscene is a subculture and community of computer enthusiasts who create r
 
 ### My demoscene effects
 
-* RotoZoom - https://mkhj.github.io/Demoscene-effects/RotoZoom/
-* Star field - https://mkhj.github.io/Demoscene-effects/starfield/
-* Tunnel - https://mkhj.github.io/Demoscene-effects/tunnel%20cubes/
-* Tunnel - https://mkhj.github.io/Demoscene-effects/tunnel%20texture/
+* RotoZoom - https://mkhj.github.io/Demoscene-effects/effects/RotoZoom/
+* Star field - https://mkhj.github.io/Demoscene-effects/effects/starfield/
+* Tunnel - https://mkhj.github.io/Demoscene-effects/effects/tunnel%20cubes/
+* Tunnel - https://mkhj.github.io/Demoscene-effects/effects/tunnel%20texture/
 
 ### Getting started
 
@@ -18,23 +18,43 @@ The Demoscene is a subculture and community of computer enthusiasts who create r
 * https://webglfundamentals.org/
 * https://thebookofshaders.com/ (Editor: http://editor.thebookofshaders.com/)
 * http://www.adrianboeing.com/files/webgl-demoscene.pdf
+* https://hofk.de/main/discourse.threejs/BeginnerExample/BeginnerExample.html
 
 Perspective Projections
 http://learnwebgl.brown37.net/08_projections/projections_perspective.html
 
+#### Book examples
+* Learn Three.js - Third Edition: https://github.com/josdirksen/learning-threejs-third/tree/master
+
 ### Tools
 
-* https://threejs.org/ (CDN https://cdnjs.com/libraries/three.js/) (Cross-browser JavaScript library and Application)
-* https://iquilezles.org/articles/functions/
-* https://graphtoy.com
-* https://github.com/tweenjs/tween.js/ (Animation engine)
-* https://animejs.com (Animation engine)
+#### Demo effect frameworks
+* https://threejs.org/ ([CDN](https://cdnjs.com/libraries/three.js/)) (Cross-browser JavaScript library and Application)
 * http://codef.santo.fr/ (Canvas Oldshool Demo Effect Framework)
 
-### Collection of demos ported to Javascript
+#### Shaders
+* https://mrdoob.com/projects/glsl_sandbox/
+  
+#### Tweening tools
+* https://github.com/tweenjs/tween.js/ (Animation engine) ([Overview](https://sole.github.io/tween.js/examples/03_graphs.html))
+* https://animejs.com (Animation engine)
+* https://easings.net (Easing function overview)
+* https://iquilezles.org/articles/functions/
+* https://graphtoy.com
+* https://github.com/glslify/glsl-easings
+* https://github.com/0b5vr/automaton (Animation engine)
+
+#### Timeline
+* Timeliner - https://github.com/zz85/timeliner
+* Frame.js - https://github.com/mrdoob/frame.js/
+* Keytime editor - https://github.com/mattdesl/keytime-editor/
+* Tweentime - https://github.com/idflood/TweenTime/
+
+### Collection of demos ported to Javascript / WebGl
 
 * Sanity – Interference Recoded (http://www.suxxs.de/InterferenceRecoded/)
 * Rgba & TBC - Elevated (http://301.untergrund.net/elevated.html)
+* Explore with me - https://www.clicktorelease.com/code/explore-with-me/
 
 ### Tips & Tricks
 
